@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
           ),
           backgroundColor: Colors.blue,
         ),
-        body: _vids.length != 0
+        body: _vids.isNotEmpty
             ? Container(
                 width: width,
                 height: height,
