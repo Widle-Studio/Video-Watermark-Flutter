@@ -9,7 +9,7 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-  Future<bool> checkPermssion() async {
+  Future<bool> checkPermission() async {
     var status = await Permission.location.status;
     if (status.isUndetermined) {
       requestPermission().then((value) {
@@ -29,10 +29,11 @@ class _SplashState extends State<Splash> {
 
   Future<bool> requestPermission() async {
     final status = await Permission.location.request();
-    //   final newstatus = await Permission.camera.request();
     if (status.isGranted) {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => HomePage()));
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
       return true;
     } else {
       return false;
@@ -41,10 +42,12 @@ class _SplashState extends State<Splash> {
 
   @override
   void initState() {
-    checkPermssion().then((permission) {
+    checkPermission().then((permission) {
       if (permission == true) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        );
       } else {
         requestPermission();
       }
@@ -54,8 +57,6 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(),
-    );
+    return Container(child: Scaffold());
   }
 }
