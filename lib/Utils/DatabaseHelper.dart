@@ -86,7 +86,8 @@ class DatabaseHelper {
   // Delete Operation: Delete a Video object from database
   Future<int> deleteVideo(int id) async {
     var db = await this.database;
-    int result = await db.rawDelete('DELETE FROM $vidTable WHERE $colId = $id');
+    int result =
+        await db.delete(vidTable, where: '$colId = ?', whereArgs: [id]);
     return result;
   }
 
