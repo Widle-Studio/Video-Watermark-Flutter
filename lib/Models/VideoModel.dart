@@ -1,13 +1,13 @@
 class VideoModel {
-  int _id;
-  String _vidName;
-  String _vidPath;
-  String _address;
-  String _latitute;
-  String _longitute;
-  String _thumbnail;
-  String _cloudStatus;
-  String _time;
+  int? _id;
+  String? _vidName;
+  String? _vidPath;
+  String? _address;
+  String? _latitute;
+  String? _longitute;
+  String? _thumbnail;
+  String? _cloudStatus;
+  String? _time;
 
   VideoModel(this._vidName, this._vidPath, this._latitute, this._longitute,
       this._thumbnail, this._cloudStatus, this._time,
@@ -17,66 +17,66 @@ class VideoModel {
       this._longitute, this._thumbnail, this._cloudStatus, this._time,
       [this._address]);
 
-  int get id => _id;
+  int? get id => _id;
 
-  String get vidName => _vidName;
-  String get vidPath => _vidPath;
+  String? get vidName => _vidName;
+  String? get vidPath => _vidPath;
 
-  String get address => _address;
+  String? get address => _address;
 
-  String get latitute => _latitute;
+  String? get latitute => _latitute;
 
-  String get longitute => _longitute;
+  String? get longitute => _longitute;
 
-  String get thumbnail => _thumbnail;
+  String? get thumbnail => _thumbnail;
 
-  String get cloudStatus => _cloudStatus;
+  String? get cloudStatus => _cloudStatus;
 
-  String get time => _time;
+  String? get time => _time;
 
-  set vidName(String newVid) {
-    if (newVid.length <= 255) {
+  set vidName(String? newVid) {
+    if (newVid != null && newVid.length <= 255) {
       this._vidName = newVid;
     }
   }
 
-  set vidPath(String newVidPath) {
-    if (newVidPath.length <= 255) {
-      this._vidName = newVidPath;
+  set vidPath(String? newVidPath) {
+    if (newVidPath != null && newVidPath.length <= 255) {
+      this._vidPath = newVidPath;
     }
   }
 
-  set address(String newAddress) {
-    if (newAddress.length <= 255) {
+  set address(String? newAddress) {
+    if (newAddress != null && newAddress.length <= 255) {
       this._address = newAddress;
     }
   }
 
-  set latitute(String newLat) {
-    if (newLat.length <= 255) {
+  set latitute(String? newLat) {
+    if (newLat != null && newLat.length <= 255) {
       this._latitute = newLat;
     }
   }
 
-  set longitute(String newLong) {
-    if (newLong.length <= 255) {
+  set longitute(String? newLong) {
+    if (newLong != null && newLong.length <= 255) {
       this._longitute = newLong;
     }
   }
 
-  set thumbnail(String newthumbnail) {
-    if (newthumbnail.length <= 255) {
+  set thumbnail(String? newthumbnail) {
+    if (newthumbnail != null && newthumbnail.length <= 255) {
       this._thumbnail = newthumbnail;
     }
   }
 
-  set cloudStatus(String status) {
-    if (status.length <= 255) {
+  set cloudStatus(String? status) {
+    if (status != null && status.length <= 255) {
       this._cloudStatus = status;
     }
   }
 
-  set time(String newTime) {
+  set time(String? newTime) {
     this._time = newTime;
   }
 
