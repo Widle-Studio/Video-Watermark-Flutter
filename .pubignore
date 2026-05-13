@@ -1,0 +1,11 @@
+example/
+.dart_tool/
+android/
+ios/
+windows/
+macos/
+linux/
+fix_all.sh
+.DS_Store
+ib.iml
+video_watermark_temp.iml

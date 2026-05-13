@@ -1,8 +1,14 @@
-# Flutter Video Watermark
-- 30 Second Video
-- Add Watermark in Video Address Locations & Latlong
-- Video Listing
+# Video Watermark Plugin
 
-<img src="https://github.com/Widle-Studio/Video-Watermark-Flutter/blob/main/screenshot/a.jpeg" alt="Video Watermark" height="850" width="400">
+A Flutter plugin to apply watermarks to videos across all platforms (Android, iOS, Web, macOS, Windows, Linux) natively and purely via Dart/WASM.
 
-<img src="https://github.com/Widle-Studio/Video-Watermark-Flutter/blob/main/screenshot/c.jpeg" alt="Video Watermark" height="850" width="400">
+## Setup
+
+See example.
+
+## Usage
+
+```dart
+final watermark = VideoWatermark();
+String? result = await watermark.addWatermark('test.mp4', 'Watermark text');
+```
