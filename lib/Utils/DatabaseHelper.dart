@@ -95,8 +95,8 @@ class DatabaseHelper {
   Future<int> getCount() async {
     Database db = await this.database;
     List<Map<String, dynamic>> x =
-        await db.rawQuery('SELECT COUNT (*) from $vidTable');
-    int result = Sqflite.firstIntValue(x);
+        await db.query(vidTable, columns: ['COUNT(*)']);
+    int result = Sqflite.firstIntValue(x) ?? 0;
     return result;
   }
 
