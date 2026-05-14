@@ -22,8 +22,8 @@ using flutter::MethodResultFunctions;
 
 }  // namespace
 
-TEST(VideoWatermarkTempPlugin, GetPlatformVersion) {
-  VideoWatermarkTempPlugin plugin;
+TEST(VideoWatermarkPlugin, GetPlatformVersion) {
+  VideoWatermarkPlugin plugin;
   // Save the reply value from the success callback.
   std::string result_string;
   plugin.HandleMethodCall(

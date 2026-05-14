@@ -13,7 +13,7 @@
 extern "C" {
 #endif
 
-FLUTTER_PLUGIN_EXPORT void VideoWatermarkTempPluginCApiRegisterWithRegistrar(
+FLUTTER_PLUGIN_EXPORT void VideoWatermarkPluginCApiRegisterWithRegistrar(
     FlutterDesktopPluginRegistrarRef registrar);
 
 #if defined(__cplusplus)

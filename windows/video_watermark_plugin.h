@@ -6,19 +6,19 @@
 
 #include <memory>
 
-namespace video_watermark_temp {
+namespace video_watermark {
 
-class VideoWatermarkTempPlugin : public flutter::Plugin {
+class VideoWatermarkPlugin : public flutter::Plugin {
  public:
   static void RegisterWithRegistrar(flutter::PluginRegistrarWindows *registrar);
 
-  VideoWatermarkTempPlugin();
+  VideoWatermarkPlugin();
 
-  virtual ~VideoWatermarkTempPlugin();
+  virtual ~VideoWatermarkPlugin();
 
   // Disallow copy and assign.
-  VideoWatermarkTempPlugin(const VideoWatermarkTempPlugin&) = delete;
-  VideoWatermarkTempPlugin& operator=(const VideoWatermarkTempPlugin&) = delete;
+  VideoWatermarkPlugin(const VideoWatermarkPlugin&) = delete;
+  VideoWatermarkPlugin& operator=(const VideoWatermarkPlugin&) = delete;
 
   // Called when a method is called on this plugin's channel from Dart.
   void HandleMethodCall(
@@ -26,6 +26,6 @@ class VideoWatermarkTempPlugin : public flutter::Plugin {
       std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result);
 };
 
-}  // namespace video_watermark_temp
+}  // namespace video_watermark
 
 #endif  // FLUTTER_PLUGIN_VIDEO_WATERMARK_TEMP_PLUGIN_H_

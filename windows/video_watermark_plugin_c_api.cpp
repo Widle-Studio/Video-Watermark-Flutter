@@ -4,9 +4,9 @@
 
 #include "video_watermark_plugin.h"
 
-void VideoWatermarkTempPluginCApiRegisterWithRegistrar(
+void VideoWatermarkPluginCApiRegisterWithRegistrar(
     FlutterDesktopPluginRegistrarRef registrar) {
-  video_watermark::VideoWatermarkTempPlugin::RegisterWithRegistrar(
+  video_watermark::VideoWatermarkPlugin::RegisterWithRegistrar(
       flutter::PluginRegistrarManager::GetInstance()
           ->GetRegistrar<flutter::PluginRegistrarWindows>(registrar));
 }
