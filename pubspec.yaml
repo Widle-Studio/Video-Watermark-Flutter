@@ -1,5 +1,5 @@
 name: video_watermark
-description: A pure Dart/WASM flutter plugin for applying watermarks to videos across multiple platforms.
+description: A pure Dart/WASM flutter plugin for applying watermarks to videos across multiple platforms natively.
 version: 0.0.1
 homepage: https://github.com/Widle-Studio/Video-Watermark-Flutter
 
@@ -27,9 +27,11 @@ flutter:
         pluginClass: VideoWatermarkPlugin
       ios:
         pluginClass: VideoWatermarkPlugin
-      linux:
-        pluginClass: VideoWatermarkPlugin
+        sharedDarwinSource: true
       macos:
+        pluginClass: VideoWatermarkPlugin
+        sharedDarwinSource: true
+      linux:
         pluginClass: VideoWatermarkPlugin
       windows:
         pluginClass: VideoWatermarkPluginCApi
