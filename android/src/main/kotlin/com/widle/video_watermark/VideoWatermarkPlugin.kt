@@ -19,7 +19,9 @@ class VideoWatermarkPlugin : FlutterPlugin, MethodCallHandler {
             result.success("Android ${android.os.Build.VERSION.RELEASE}")
         } else if (call.method == "addWatermark") {
             val videoPath = call.argument<String>("videoPath")
-            result.success("Android watermarked $videoPath")
+            val position = call.argument<Map<String, Any>>("position")
+            val posStr = if (position != null) position.toString() else "default"
+            result.success("Android watermarked $videoPath at $posStr")
         } else {
             result.notImplemented()
         }

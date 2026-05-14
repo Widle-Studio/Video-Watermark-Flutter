@@ -1,5 +1,6 @@
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'video_watermark_platform_interface.dart';
+import 'watermark_position.dart';
 
 class VideoWatermarkWeb extends VideoWatermarkPlatform {
   VideoWatermarkWeb();
@@ -9,7 +10,8 @@ class VideoWatermarkWeb extends VideoWatermarkPlatform {
   }
 
   @override
-  Future<String?> addWatermark(String videoPath, String watermarkText) async {
-    return "WASM watermarked version of $videoPath with text $watermarkText";
+  Future<String?> addWatermark(String videoPath, String watermarkText, {WatermarkPosition? position}) async {
+    final posStr = position != null ? position.toMap().toString() : "default";
+    return "WASM watermarked version of $videoPath with text $watermarkText at $posStr";
   }
 }

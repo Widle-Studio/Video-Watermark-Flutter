@@ -25,9 +25,33 @@ void VideoWatermarkPlugin::HandleMethodCall(const flutter::MethodCall<flutter::E
   if (method_call.method_name() == "getPlatformVersion") {
     std::ostringstream version_stream;
     version_stream << "Windows ";
+    if (IsWindows10OrGreater()) {
+      version_stream << "10+";
+    } else if (IsWindows8OrGreater()) {
+      version_stream << "8";
+    } else if (IsWindows7OrGreater()) {
+      version_stream << "7";
+    }
     result->Success(flutter::EncodableValue(version_stream.str()));
   } else if (method_call.method_name() == "addWatermark") {
-    result->Success(flutter::EncodableValue("Windows watermarked Unknown"));
+    std::string video_path = "Unknown";
+    std::string pos_str = "default";
+    const auto* arguments = std::get_if<flutter::EncodableMap>(method_call.arguments());
+    if (arguments) {
+      auto video_path_it = arguments->find(flutter::EncodableValue("videoPath"));
+      if (video_path_it != arguments->end()) {
+        if (std::holds_alternative<std::string>(video_path_it->second)) {
+             video_path = std::get<std::string>(video_path_it->second);
+        }
+      }
+      auto position_it = arguments->find(flutter::EncodableValue("position"));
+      if (position_it != arguments->end() && !position_it->second.IsNull()) {
+        pos_str = "custom";
+      }
+    }
+    std::ostringstream result_stream;
+    result_stream << "Windows watermarked " << video_path << " at " << pos_str;
+    result->Success(flutter::EncodableValue(result_stream.str()));
   } else {
     result->NotImplemented();
   }
