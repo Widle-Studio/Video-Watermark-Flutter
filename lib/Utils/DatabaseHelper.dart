@@ -103,15 +103,7 @@ class DatabaseHelper {
   // Get the 'Map List' [ List<Map> ] and convert it to 'Video List' [ List<Video> ]
   Future<List<VideoModel>> getVidList() async {
     var vidMapList = await getVidMapList(); // Get 'Map List' from database
-    int count =
-        vidMapList.length; // Count the number of map entries in db table
 
-    List<VideoModel> vidList = List<VideoModel>();
-    // For loop to create a 'vid List' from a 'Map List'
-    for (int i = 0; i < count; i++) {
-      vidList.add(VideoModel.fromMapObject(vidMapList[i]));
-    }
-
-    return vidList;
+    return vidMapList.map((map) => VideoModel.fromMapObject(map)).toList();
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ib/Models/VideoModel.dart';
+import 'package:video_watermark/Models/VideoModel.dart';
 
 void main() {
   group('VideoModel Tests', () {
