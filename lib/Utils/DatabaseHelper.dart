@@ -104,6 +104,9 @@ class DatabaseHelper {
   Future<List<VideoModel>> getVidList() async {
     var vidMapList = await getVidMapList(); // Get 'Map List' from database
 
-    return vidMapList.map((map) => VideoModel.fromMapObject(map)).toList();
+    List<VideoModel> vidList =
+        vidMapList.map((map) => VideoModel.fromMapObject(map)).toList();
+
+    return vidList;
   }
 }
