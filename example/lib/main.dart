@@ -18,16 +18,24 @@ class MyApp extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               ElevatableButtonWithWatermark(
-                title: 'Add Watermark (Default)',
+                title: 'Add Text Watermark (Default)',
+                watermark: const TextWatermark('Hello World'),
               ),
               const SizedBox(height: 16),
               ElevatableButtonWithWatermark(
-                title: 'Add Watermark (Bottom Right)',
+                title: 'Add Custom Text Watermark',
+                watermark: const TextWatermark(
+                  'Custom Font & Color',
+                  color: Colors.red,
+                  fontSize: 32.0,
+                  fontFamily: 'Arial',
+                ),
                 position: const WatermarkPosition.alignment(WatermarkAlignment.bottomRight),
               ),
               const SizedBox(height: 16),
               ElevatableButtonWithWatermark(
-                title: 'Add Watermark (x: 100, y: 100)',
+                title: 'Add Image Watermark',
+                watermark: const ImageWatermark(imagePath: '/path/to/logo.png'),
                 position: const WatermarkPosition.coordinates(100, 100),
               ),
             ],
@@ -40,11 +48,13 @@ class MyApp extends StatelessWidget {
 
 class ElevatableButtonWithWatermark extends StatelessWidget {
   final String title;
+  final WatermarkSource watermark;
   final WatermarkPosition? position;
 
   const ElevatableButtonWithWatermark({
     Key? key,
     required this.title,
+    required this.watermark,
     this.position,
   }) : super(key: key);
 
@@ -52,10 +62,10 @@ class ElevatableButtonWithWatermark extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () async {
-        final watermark = VideoWatermark();
-        String? result = await watermark.addWatermark(
+        final plugin = VideoWatermark();
+        String? result = await plugin.addWatermark(
           'test.mp4',
-          'Watermark text',
+          watermark,
           position: position,
         );
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(result ?? 'Failed')));

@@ -1,6 +1,7 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'video_watermark_method_channel.dart';
 import 'watermark_position.dart';
+import 'watermark_source.dart';
 
 abstract class VideoWatermarkPlatform extends PlatformInterface {
   VideoWatermarkPlatform() : super(token: _token);
@@ -17,7 +18,11 @@ abstract class VideoWatermarkPlatform extends PlatformInterface {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
-  Future<String?> addWatermark(String videoPath, String watermarkText, {WatermarkPosition? position}) {
+  Future<String?> addWatermark(
+    String videoPath,
+    WatermarkSource watermark, {
+    WatermarkPosition? position,
+  }) {
     throw UnimplementedError('addWatermark() has not been implemented.');
   }
 }

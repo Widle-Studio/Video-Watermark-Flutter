@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'video_watermark_platform_interface.dart';
 import 'watermark_position.dart';
+import 'watermark_source.dart';
 
 class MethodChannelVideoWatermark extends VideoWatermarkPlatform {
   @visibleForTesting
@@ -14,10 +15,14 @@ class MethodChannelVideoWatermark extends VideoWatermarkPlatform {
   }
 
   @override
-  Future<String?> addWatermark(String videoPath, String watermarkText, {WatermarkPosition? position}) async {
+  Future<String?> addWatermark(
+    String videoPath,
+    WatermarkSource watermark, {
+    WatermarkPosition? position,
+  }) async {
     final version = await methodChannel.invokeMethod<String>('addWatermark', {
       'videoPath': videoPath,
-      'watermarkText': watermarkText,
+      'watermark': watermark.toMap(),
       'position': position?.toMap(),
     });
     return version;

@@ -36,19 +36,26 @@ static void video_watermark_plugin_handle_method_call(
   } else if (strcmp(method, "addWatermark") == 0) {
     FlValue* args = fl_method_call_get_args(method_call);
     FlValue* video_path_value = fl_value_lookup_string(args, "videoPath");
+    FlValue* watermark_value = fl_value_lookup_string(args, "watermark");
     FlValue* position_value = fl_value_lookup_string(args, "position");
+
     const gchar* video_path = "Unknown";
+    std::string watermark_str = "unknown watermark";
     std::string pos_str = "default";
 
     if (video_path_value != nullptr && fl_value_get_type(video_path_value) == FL_VALUE_TYPE_STRING) {
       video_path = fl_value_get_string(video_path_value);
     }
 
-    if (position_value != nullptr && fl_value_get_type(position_value) == FL_VALUE_TYPE_MAP) {
-      pos_str = "custom"; // Placeholder for map parsing
+    if (watermark_value != nullptr && fl_value_get_type(watermark_value) == FL_VALUE_TYPE_MAP) {
+      watermark_str = "custom watermark";
     }
 
-    g_autofree gchar *result_str = g_strdup_printf("Linux watermarked %s at %s", video_path, pos_str.c_str());
+    if (position_value != nullptr && fl_value_get_type(position_value) == FL_VALUE_TYPE_MAP) {
+      pos_str = "custom";
+    }
+
+    g_autofree gchar *result_str = g_strdup_printf("Linux watermarked %s with %s at %s", video_path, watermark_str.c_str(), pos_str.c_str());
     g_autoptr(FlValue) result = fl_value_new_string(result_str);
     response = FL_METHOD_RESPONSE(fl_method_success_response_new(result));
   } else {

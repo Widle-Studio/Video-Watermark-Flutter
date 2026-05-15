@@ -6,6 +6,6 @@ void main() {
   testWidgets('App smoke test', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
     expect(find.text('Video Watermark Example'), findsOneWidget);
-    expect(find.text('Add Watermark (Default)'), findsOneWidget);
+    expect(find.text('Add Text Watermark (Default)'), findsOneWidget);
   });
 }

@@ -29,12 +29,16 @@ public class VideoWatermarkPlugin: NSObject, FlutterPlugin {
     case "addWatermark":
       let args = call.arguments as? [String: Any]
       let videoPath = args?["videoPath"] as? String ?? "Unknown"
+      let watermark = args?["watermark"] as? [String: Any]
       let position = args?["position"] as? [String: Any]
-      let posStr = position != null ? String(describing: position!) : "default"
+
+      let watermarkStr = watermark != nil ? String(describing: watermark!) : "unknown watermark"
+      let posStr = position != nil ? String(describing: position!) : "default"
+
       #if os(macOS)
-      result("macOS watermarked " + videoPath + " at " + posStr)
+      result("macOS watermarked " + videoPath + " with " + watermarkStr + " at " + posStr)
       #else
-      result("iOS watermarked " + videoPath + " at " + posStr)
+      result("iOS watermarked " + videoPath + " with " + watermarkStr + " at " + posStr)
       #endif
     default:
       result(FlutterMethodNotImplemented)
