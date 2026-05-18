@@ -6,6 +6,7 @@ class VideoWatermark {
   }
 
   Future<String?> addWatermark(String videoPath, String watermarkText) {
-    return VideoWatermarkPlatform.instance.addWatermark(videoPath, watermarkText);
+    return VideoWatermarkPlatform.instance
+        .addWatermark(videoPath, watermarkText);
   }
 }
