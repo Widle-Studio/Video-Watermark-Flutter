@@ -12,7 +12,9 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
+  path_provider: ^2.1.5
   plugin_platform_interface: ^2.0.2
+  sqflite: ^2.4.2+1
 
 dev_dependencies:
   flutter_test:
