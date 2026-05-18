@@ -23,8 +23,8 @@ class DatabaseHelper {
 
   factory DatabaseHelper() {
     if (_databaseHelper == null) {
-      _databaseHelper = DatabaseHelper
-          ._createInstance(); // This is executed only once, singleton object
+      _databaseHelper =
+          DatabaseHelper._createInstance(); // This is executed only once, singleton object
     }
     return _databaseHelper;
   }
@@ -42,21 +42,25 @@ class DatabaseHelper {
     String path = directory.path + 'vids.db';
 
     // Open/create the database at a given path
-    var vidsDatabase =
-        await openDatabase(path, version: 1, onCreate: _createDb);
+    var vidsDatabase = await openDatabase(
+      path,
+      version: 1,
+      onCreate: _createDb,
+    );
     return vidsDatabase;
   }
 
   void _createDb(Database db, int newVersion) async {
     await db.execute(
-        'CREATE TABLE $vidTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $vidName TEXT, $vidPath TEXT, $address TEXT, $latitute TEXT, $longitute TEXT, $thumbnail, $cloudStatus TEXT, $time TEXT)');
+      'CREATE TABLE $vidTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $vidName TEXT, $vidPath TEXT, $address TEXT, $latitute TEXT, $longitute TEXT, $thumbnail, $cloudStatus TEXT, $time TEXT)',
+    );
   }
 
   // Fetch Operation: Get all vid objects from database
   Future<List<Map<String, dynamic>>> getVidMapList() async {
     Database db = await this.database;
 
-//		var result = await db.rawQuery('SELECT * FROM $vidTable order by $colTitle ASC');
+    //		var result = await db.rawQuery('SELECT * FROM $vidTable order by $colTitle ASC');
     var result = await db.query(vidTable, orderBy: '$colId DESC');
     return result;
   }
@@ -71,31 +75,33 @@ class DatabaseHelper {
   // Update Operation: Update a Video object and save it to database
   Future<int> updateVideo(VideoModel vid) async {
     var db = await this.database;
-    var result = await db.update(vidTable, vid.toMap(),
-        where: '$colId = ?', whereArgs: [vid.id]);
-    return result;
-  }
-
-  Future<int> updateVideoCompleted(VideoModel vid) async {
-    var db = await this.database;
-    var result = await db.update(vidTable, vid.toMap(),
-        where: '$colId = ?', whereArgs: [vid.id]);
+    var result = await db.update(
+      vidTable,
+      vid.toMap(),
+      where: '$colId = ?',
+      whereArgs: [vid.id],
+    );
     return result;
   }
 
   // Delete Operation: Delete a Video object from database
   Future<int> deleteVideo(int id) async {
     var db = await this.database;
-    int result =
-        await db.delete(vidTable, where: '$colId = ?', whereArgs: [id]);
+    int result = await db.delete(
+      vidTable,
+      where: '$colId = ?',
+      whereArgs: [id],
+    );
     return result;
   }
 
   // Get number of Video objects in database
   Future<int> getCount() async {
     Database db = await this.database;
-    List<Map<String, dynamic>> x =
-        await db.query(vidTable, columns: ['COUNT(*)']);
+    List<Map<String, dynamic>> x = await db.query(
+      vidTable,
+      columns: ['COUNT(*)'],
+    );
     int result = Sqflite.firstIntValue(x) ?? 0;
     return result;
   }
@@ -104,8 +110,9 @@ class DatabaseHelper {
   Future<List<VideoModel>> getVidList() async {
     var vidMapList = await getVidMapList(); // Get 'Map List' from database
 
-    List<VideoModel> vidList =
-        vidMapList.map((map) => VideoModel.fromMapObject(map)).toList();
+    List<VideoModel> vidList = vidMapList
+        .map((map) => VideoModel.fromMapObject(map))
+        .toList();
 
     return vidList;
   }
