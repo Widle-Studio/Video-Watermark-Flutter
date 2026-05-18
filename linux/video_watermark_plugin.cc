@@ -39,9 +39,13 @@ static void video_watermark_plugin_handle_method_call(
     FlValue* watermark_value = fl_value_lookup_string(args, "watermark");
     FlValue* position_value = fl_value_lookup_string(args, "position");
 
+    // Add extra params parsed here for brevity of stub implementation
+    FlValue* wm_start = fl_value_lookup_string(args, "watermarkStartTime");
+
     const gchar* video_path = "Unknown";
     std::string watermark_str = "unknown watermark";
     std::string pos_str = "default";
+    std::string extras = "";
 
     if (video_path_value != nullptr && fl_value_get_type(video_path_value) == FL_VALUE_TYPE_STRING) {
       video_path = fl_value_get_string(video_path_value);
@@ -55,7 +59,11 @@ static void video_watermark_plugin_handle_method_call(
       pos_str = "custom";
     }
 
-    g_autofree gchar *result_str = g_strdup_printf("Linux watermarked %s with %s at %s", video_path, watermark_str.c_str(), pos_str.c_str());
+    if (wm_start != nullptr && fl_value_get_type(wm_start) == FL_VALUE_TYPE_INT) {
+      extras += "wm_start";
+    }
+
+    g_autofree gchar *result_str = g_strdup_printf("Linux watermarked %s with %s at %s (%s)", video_path, watermark_str.c_str(), pos_str.c_str(), extras.c_str());
     g_autoptr(FlValue) result = fl_value_new_string(result_str);
     response = FL_METHOD_RESPONSE(fl_method_success_response_new(result));
   } else {

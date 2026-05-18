@@ -37,6 +37,7 @@ void VideoWatermarkPlugin::HandleMethodCall(const flutter::MethodCall<flutter::E
     std::string video_path = "Unknown";
     std::string watermark_str = "unknown watermark";
     std::string pos_str = "default";
+    std::string extras = "";
 
     const auto* arguments = std::get_if<flutter::EncodableMap>(method_call.arguments());
     if (arguments) {
@@ -56,9 +57,14 @@ void VideoWatermarkPlugin::HandleMethodCall(const flutter::MethodCall<flutter::E
       if (position_it != arguments->end() && !position_it->second.IsNull()) {
         pos_str = "custom";
       }
+
+      auto wm_start_it = arguments->find(flutter::EncodableValue("watermarkStartTime"));
+      if (wm_start_it != arguments->end() && !wm_start_it->second.IsNull()) {
+        extras = "wm_start parsed";
+      }
     }
     std::ostringstream result_stream;
-    result_stream << "Windows watermarked " << video_path << " with " << watermark_str << " at " << pos_str;
+    result_stream << "Windows watermarked " << video_path << " with " << watermark_str << " at " << pos_str << " (" << extras << ")";
     result->Success(flutter::EncodableValue(result_stream.str()));
   } else {
     result->NotImplemented();

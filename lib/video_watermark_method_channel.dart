@@ -19,11 +19,25 @@ class MethodChannelVideoWatermark extends VideoWatermarkPlatform {
     String videoPath,
     WatermarkSource watermark, {
     WatermarkPosition? position,
+    Duration? watermarkStartTime,
+    Duration? watermarkEndTime,
+    int? resizeWidth,
+    int? resizeHeight,
+    Duration? trimStart,
+    Duration? trimEnd,
+    double? compressionQuality,
   }) async {
     final version = await methodChannel.invokeMethod<String>('addWatermark', {
       'videoPath': videoPath,
       'watermark': watermark.toMap(),
       'position': position?.toMap(),
+      if (watermarkStartTime != null) 'watermarkStartTime': watermarkStartTime.inMilliseconds,
+      if (watermarkEndTime != null) 'watermarkEndTime': watermarkEndTime.inMilliseconds,
+      if (resizeWidth != null) 'resizeWidth': resizeWidth,
+      if (resizeHeight != null) 'resizeHeight': resizeHeight,
+      if (trimStart != null) 'trimStart': trimStart.inMilliseconds,
+      if (trimEnd != null) 'trimEnd': trimEnd.inMilliseconds,
+      if (compressionQuality != null) 'compressionQuality': compressionQuality,
     });
     return version;
   }

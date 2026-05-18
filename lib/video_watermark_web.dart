@@ -15,9 +15,26 @@ class VideoWatermarkWeb extends VideoWatermarkPlatform {
     String videoPath,
     WatermarkSource watermark, {
     WatermarkPosition? position,
+    Duration? watermarkStartTime,
+    Duration? watermarkEndTime,
+    int? resizeWidth,
+    int? resizeHeight,
+    Duration? trimStart,
+    Duration? trimEnd,
+    double? compressionQuality,
   }) async {
     final posStr = position != null ? position.toMap().toString() : "default";
     final watermarkStr = watermark.toMap().toString();
-    return "WASM watermarked version of $videoPath with watermark $watermarkStr at $posStr";
+    final parts = [
+      if (watermarkStartTime != null) 'wm_start: ${watermarkStartTime.inMilliseconds}ms',
+      if (watermarkEndTime != null) 'wm_end: ${watermarkEndTime.inMilliseconds}ms',
+      if (resizeWidth != null && resizeHeight != null) 'resize: ${resizeWidth}x$resizeHeight',
+      if (trimStart != null) 'trim_start: ${trimStart.inMilliseconds}ms',
+      if (trimEnd != null) 'trim_end: ${trimEnd.inMilliseconds}ms',
+      if (compressionQuality != null) 'quality: $compressionQuality',
+    ];
+    final extras = parts.isEmpty ? "no extra props" : parts.join(", ");
+
+    return "WASM watermarked version of $videoPath with watermark $watermarkStr at $posStr ($extras)";
   }
 }

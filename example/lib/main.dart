@@ -13,30 +13,39 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: const Text('Video Watermark Example')),
-        body: Center(
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ElevatableButtonWithWatermark(
+              const ElevatableButtonWithWatermark(
                 title: 'Add Text Watermark (Default)',
-                watermark: const TextWatermark('Hello World'),
+                watermark: TextWatermark('Hello World'),
               ),
               const SizedBox(height: 16),
-              ElevatableButtonWithWatermark(
-                title: 'Add Custom Text Watermark',
-                watermark: const TextWatermark(
+              const ElevatableButtonWithWatermark(
+                title: 'Add Custom Text Watermark (50% Opacity)',
+                watermark: TextWatermark(
                   'Custom Font & Color',
                   color: Colors.red,
                   fontSize: 32.0,
                   fontFamily: 'Arial',
+                  opacity: 0.5,
                 ),
-                position: const WatermarkPosition.alignment(WatermarkAlignment.bottomRight),
+                position: WatermarkPosition.alignment(WatermarkAlignment.bottomRight),
               ),
               const SizedBox(height: 16),
-              ElevatableButtonWithWatermark(
-                title: 'Add Image Watermark',
-                watermark: const ImageWatermark(imagePath: '/path/to/logo.png'),
-                position: const WatermarkPosition.coordinates(100, 100),
+              const ElevatableButtonWithWatermark(
+                title: 'Add Image Watermark (Trimmed & Resized)',
+                watermark: ImageWatermark(imagePath: '/path/to/logo.png', opacity: 0.8),
+                position: WatermarkPosition.coordinates(100, 100),
+                watermarkStartTime: Duration(seconds: 2),
+                watermarkEndTime: Duration(seconds: 10),
+                resizeWidth: 1280,
+                resizeHeight: 720,
+                trimStart: Duration(seconds: 0),
+                trimEnd: Duration(seconds: 15),
+                compressionQuality: 0.8,
               ),
             ],
           ),
@@ -50,12 +59,26 @@ class ElevatableButtonWithWatermark extends StatelessWidget {
   final String title;
   final WatermarkSource watermark;
   final WatermarkPosition? position;
+  final Duration? watermarkStartTime;
+  final Duration? watermarkEndTime;
+  final int? resizeWidth;
+  final int? resizeHeight;
+  final Duration? trimStart;
+  final Duration? trimEnd;
+  final double? compressionQuality;
 
   const ElevatableButtonWithWatermark({
     Key? key,
     required this.title,
     required this.watermark,
     this.position,
+    this.watermarkStartTime,
+    this.watermarkEndTime,
+    this.resizeWidth,
+    this.resizeHeight,
+    this.trimStart,
+    this.trimEnd,
+    this.compressionQuality,
   }) : super(key: key);
 
   @override
@@ -67,10 +90,17 @@ class ElevatableButtonWithWatermark extends StatelessWidget {
           'test.mp4',
           watermark,
           position: position,
+          watermarkStartTime: watermarkStartTime,
+          watermarkEndTime: watermarkEndTime,
+          resizeWidth: resizeWidth,
+          resizeHeight: resizeHeight,
+          trimStart: trimStart,
+          trimEnd: trimEnd,
+          compressionQuality: compressionQuality,
         );
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(result ?? 'Failed')));
       },
-      child: Text(title),
+      child: Text(title, textAlign: TextAlign.center),
     );
   }
 }

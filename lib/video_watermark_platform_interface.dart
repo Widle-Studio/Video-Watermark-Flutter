@@ -22,6 +22,13 @@ abstract class VideoWatermarkPlatform extends PlatformInterface {
     String videoPath,
     WatermarkSource watermark, {
     WatermarkPosition? position,
+    Duration? watermarkStartTime,
+    Duration? watermarkEndTime,
+    int? resizeWidth,
+    int? resizeHeight,
+    Duration? trimStart,
+    Duration? trimEnd,
+    double? compressionQuality,
   }) {
     throw UnimplementedError('addWatermark() has not been implemented.');
   }

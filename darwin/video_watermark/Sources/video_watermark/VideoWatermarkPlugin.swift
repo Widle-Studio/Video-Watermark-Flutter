@@ -35,10 +35,19 @@ public class VideoWatermarkPlugin: NSObject, FlutterPlugin {
       let watermarkStr = watermark != nil ? String(describing: watermark!) : "unknown watermark"
       let posStr = position != nil ? String(describing: position!) : "default"
 
+      var extras = ""
+      if let wmStart = args?["watermarkStartTime"] as? Int { extras += "wm_start: \(wmStart) " }
+      if let wmEnd = args?["watermarkEndTime"] as? Int { extras += "wm_end: \(wmEnd) " }
+      if let rw = args?["resizeWidth"] as? Int { extras += "resizeW: \(rw) " }
+      if let rh = args?["resizeHeight"] as? Int { extras += "resizeH: \(rh) " }
+      if let trimStart = args?["trimStart"] as? Int { extras += "trim_start: \(trimStart) " }
+      if let trimEnd = args?["trimEnd"] as? Int { extras += "trim_end: \(trimEnd) " }
+      if let quality = args?["compressionQuality"] as? Double { extras += "quality: \(quality)" }
+
       #if os(macOS)
-      result("macOS watermarked " + videoPath + " with " + watermarkStr + " at " + posStr)
+      result("macOS watermarked " + videoPath + " with " + watermarkStr + " at " + posStr + " (" + extras + ")")
       #else
-      result("iOS watermarked " + videoPath + " with " + watermarkStr + " at " + posStr)
+      result("iOS watermarked " + videoPath + " with " + watermarkStr + " at " + posStr + " (" + extras + ")")
       #endif
     default:
       result(FlutterMethodNotImplemented)
