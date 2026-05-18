@@ -73,7 +73,8 @@ void main() {
       expect(video.time, '2023-10-27 10:00:00');
     });
 
-    test('Setters should respect length constraints and update correct fields', () {
+    test('Setters should respect length constraints and update correct fields',
+        () {
       final video = VideoModel('', '', '', '', '', '', '');
 
       video.vidName = 'New Name';

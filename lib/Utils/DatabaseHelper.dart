@@ -5,19 +5,19 @@ import 'package:path_provider/path_provider.dart';
 import '../Models/VideoModel.dart';
 
 class DatabaseHelper {
-  static DatabaseHelper _databaseHelper; // Singleton DatabaseHelper
-  static Database _database; // Singleton Database
+  static DatabaseHelper? _databaseHelper; // Singleton DatabaseHelper
+  static Database? _database; // Singleton Database
 
-  String vidTable = 'vid_table';
-  String colId = 'id';
-  String vidName = 'vidName';
-  String vidPath = 'vidPath';
-  String address = 'address';
-  String latitute = 'latitute';
-  String longitute = 'longitute';
-  String thumbnail = 'thumbnail';
-  String cloudStatus = 'cloudStatus';
-  String time = 'time';
+  static const String vidTable = 'vid_table';
+  static const String colId = 'id';
+  static const String vidName = 'vidName';
+  static const String vidPath = 'vidPath';
+  static const String address = 'address';
+  static const String latitute = 'latitute';
+  static const String longitute = 'longitute';
+  static const String thumbnail = 'thumbnail';
+  static const String cloudStatus = 'cloudStatus';
+  static const String time = 'time';
 
   DatabaseHelper._createInstance(); // Named constructor to create instance of DatabaseHelper
 
@@ -26,14 +26,14 @@ class DatabaseHelper {
       _databaseHelper =
           DatabaseHelper._createInstance(); // This is executed only once, singleton object
     }
-    return _databaseHelper;
+    return _databaseHelper!;
   }
 
   Future<Database> get database async {
     if (_database == null) {
       _database = await initializeDatabase();
     }
-    return _database;
+    return _database!;
   }
 
   Future<Database> initializeDatabase() async {
@@ -52,7 +52,7 @@ class DatabaseHelper {
 
   void _createDb(Database db, int newVersion) async {
     await db.execute(
-      'CREATE TABLE $vidTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $vidName TEXT, $vidPath TEXT, $address TEXT, $latitute TEXT, $longitute TEXT, $thumbnail, $cloudStatus TEXT, $time TEXT)',
+      'CREATE TABLE vid_table(id INTEGER PRIMARY KEY AUTOINCREMENT, vidName TEXT, vidPath TEXT, address TEXT, latitute TEXT, longitute TEXT, thumbnail TEXT, cloudStatus TEXT, time TEXT)',
     );
   }
 
@@ -60,6 +60,7 @@ class DatabaseHelper {
   Future<List<Map<String, dynamic>>> getVidMapList() async {
     Database db = await this.database;
 
+    //		var result = await db.rawQuery('SELECT * FROM $vidTable order by $colTitle ASC');
     var result = await db.query(vidTable, orderBy: '$colId DESC');
     return result;
   }
@@ -73,6 +74,17 @@ class DatabaseHelper {
 
   // Update Operation: Update a Video object and save it to database
   Future<int> updateVideo(VideoModel vid) async {
+    var db = await this.database;
+    var result = await db.update(
+      vidTable,
+      vid.toMap(),
+      where: '$colId = ?',
+      whereArgs: [vid.id],
+    );
+    return result;
+  }
+
+  Future<int> updateVideoCompleted(VideoModel vid) async {
     var db = await this.database;
     var result = await db.update(
       vidTable,

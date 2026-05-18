@@ -13,7 +13,10 @@ void main() {
 
       final result = await webPlugin.addWatermark(videoPath, watermarkText);
 
-      expect(result, equals('WASM watermarked version of $videoPath with text $watermarkText'));
+      expect(
+          result,
+          equals(
+              'WASM watermarked version of $videoPath with text $watermarkText'));
     });
   });
 }

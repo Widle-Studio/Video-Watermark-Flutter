@@ -17,7 +17,8 @@ class MyApp extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () async {
               final watermark = VideoWatermark();
-              String? result = await watermark.addWatermark('test.mp4', 'Watermark text');
+              String? result =
+                  await watermark.addWatermark('test.mp4', 'Watermark text');
               print(result);
             },
             child: const Text('Add Watermark'),
