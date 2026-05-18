@@ -11,14 +11,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: subosito/flutter-action@v2
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
 
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Run test/video_model_test.dart
-        run: flutter test test/video_model_test.dart
+      - name: Analyze project source
+        run: flutter analyze
+
+      - name: Run tests
+        run: flutter test test/video_model_test.dart && flutter test test/video_watermark_web_test.dart --platform=chrome
