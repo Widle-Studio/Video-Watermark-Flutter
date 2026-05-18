@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:video_watermark/video_watermark_web.dart';
+import 'package:ib/video_watermark_platform_interface.dart';
+import 'package:ib/video_watermark_web.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
