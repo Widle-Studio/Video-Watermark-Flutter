@@ -84,17 +84,6 @@ class DatabaseHelper {
     return result;
   }
 
-  Future<int> updateVideoCompleted(VideoModel vid) async {
-    var db = await this.database;
-    var result = await db.update(
-      vidTable,
-      vid.toMap(),
-      where: '$colId = ?',
-      whereArgs: [vid.id],
-    );
-    return result;
-  }
-
   // Delete Operation: Delete a Video object from database
   Future<int> deleteVideo(int id) async {
     var db = await this.database;
