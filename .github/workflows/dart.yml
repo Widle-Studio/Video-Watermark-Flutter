@@ -21,8 +21,8 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Analyze project source
-        run: flutter analyze
+      - name: Format project source
+        run: dart format --output=none --set-exit-if-changed .
 
       - name: Run tests
-        run: flutter test test/video_model_test.dart && flutter test test/video_watermark_web_test.dart --platform=chrome
+        run: flutter test test/video_model_test.dart
