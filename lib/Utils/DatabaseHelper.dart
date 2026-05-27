@@ -30,16 +30,14 @@ class DatabaseHelper {
   }
 
   Future<Database> get database async {
-    if (_database == null) {
-      _database = await initializeDatabase();
-    }
+    _database ??= await initializeDatabase();
     return _database!;
   }
 
   Future<Database> initializeDatabase() async {
     // Get the directory path for both Android and iOS to store database.
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = directory.path + 'vids.db';
+    String path = '${directory.path}vids.db';
 
     // Open/create the database at a given path
     var vidsDatabase = await openDatabase(
@@ -58,34 +56,22 @@ class DatabaseHelper {
 
   // Fetch Operation: Get all vid objects from database
   Future<List<Map<String, dynamic>>> getVidMapList() async {
-    Database db = await this.database;
+    Database db = await database;
 
-    //		var result = await db.rawQuery('SELECT * FROM $vidTable order by $colTitle ASC');
     var result = await db.query(vidTable, orderBy: '$colId DESC');
     return result;
   }
 
   // Insert Operation: Insert a vid object to database
   Future<int> insertVideo(VideoModel vid) async {
-    Database db = await this.database;
+    Database db = await database;
     var result = await db.insert(vidTable, vid.toMap());
     return result;
   }
 
   // Update Operation: Update a Video object and save it to database
   Future<int> updateVideo(VideoModel vid) async {
-    var db = await this.database;
-    var result = await db.update(
-      vidTable,
-      vid.toMap(),
-      where: '$colId = ?',
-      whereArgs: [vid.id],
-    );
-    return result;
-  }
-
-  Future<int> updateVideoCompleted(VideoModel vid) async {
-    var db = await this.database;
+    var db = await database;
     var result = await db.update(
       vidTable,
       vid.toMap(),
@@ -97,7 +83,7 @@ class DatabaseHelper {
 
   // Delete Operation: Delete a Video object from database
   Future<int> deleteVideo(int id) async {
-    var db = await this.database;
+    var db = await database;
     int result = await db.delete(
       vidTable,
       where: '$colId = ?',
@@ -108,7 +94,7 @@ class DatabaseHelper {
 
   // Get number of Video objects in database
   Future<int> getCount() async {
-    Database db = await this.database;
+    Database db = await database;
     List<Map<String, dynamic>> x = await db.query(
       vidTable,
       columns: ['COUNT(*)'],
