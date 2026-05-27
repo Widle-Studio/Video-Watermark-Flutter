@@ -22,8 +22,10 @@ class DatabaseHelper {
   DatabaseHelper._createInstance(); // Named constructor to create instance of DatabaseHelper
 
   factory DatabaseHelper() {
-    _databaseHelper ??= DatabaseHelper
-        ._createInstance(); // This is executed only once, singleton object
+    if (_databaseHelper == null) {
+      _databaseHelper = DatabaseHelper
+          ._createInstance(); // This is executed only once, singleton object
+    }
     return _databaseHelper!;
   }
 
@@ -105,8 +107,11 @@ class DatabaseHelper {
   Future<List<VideoModel>> getVidList() async {
     var vidMapList = await getVidMapList(); // Get 'Map List' from database
 
-    List<VideoModel> vidList =
-        vidMapList.map((map) => VideoModel.fromMapObject(map)).toList();
+    List<VideoModel> vidList = List.generate(
+      vidMapList.length,
+      (i) => VideoModel.fromMapObject(vidMapList[i]),
+      growable: false,
+    );
 
     return vidList;
   }
