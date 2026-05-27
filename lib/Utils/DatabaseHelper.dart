@@ -60,7 +60,6 @@ class DatabaseHelper {
   Future<List<Map<String, dynamic>>> getVidMapList() async {
     Database db = await this.database;
 
-    //		var result = await db.rawQuery('SELECT * FROM $vidTable order by $colTitle ASC');
     var result = await db.query(vidTable, orderBy: '$colId DESC');
     return result;
   }
